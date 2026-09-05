@@ -4,55 +4,55 @@
     "nome": "Camiseta de Algodão Orgânico",
     "preco": 79.9,
     "categoria": "Roupas",
-    "imagem": "/imagens/camiseta.jpg"
+    "imagem": "/imagens/camiseta.png"
   },
   {
     "id": 2,
     "nome": "Ecobag de Algodão",
     "preco": 39.9,
     "categoria": "Roupas",
-    "imagem": "/imagens/ecobag.jpg"
+    "imagem": "/imagens/ecobag.png"
   },
   {
     "id": 3,
     "nome": "Sabonete Natural",
     "preco": 24.9,
     "categoria": "Beleza",
-    "imagem": "/imagens/sabonete.jpg"
+    "imagem": "/imagens/sabonete.png"
   },
   {
     "id": 4,
     "nome": "Shampoo Sólido",
     "preco": 34.9,
     "categoria": "Beleza",
-    "imagem": "/imagens/shampoo.jpg"
+    "imagem": "/imagens/shampoo.png"
   },
   {
     "id": 5,
     "nome": "Escova de Bambu",
     "preco": 19.9,
     "categoria": "Casa",
-    "imagem": "/imagens/escova.jpg"
+    "imagem": "/imagens/escova.png"
   },
   {
     "id": 6,
     "nome": "Garrafa Reutilizável",
     "preco": 59.9,
     "categoria": "Casa",
-    "imagem": "/imagens/garrafa.jpg"
+    "imagem": "/imagens/garrafa.png"
   },
   {
     "id": 7,
     "nome": "Carregador Solar",
     "preco": 149.9,
     "categoria": "Tecnologia",
-    "imagem": "/imagens/carregador-solar.jpg"
+    "imagem": "/imagens/carregador-solar.png"
   },
   {
     "id": 8,
     "nome": "Luminária Solar",
     "preco": 99.9,
     "categoria": "Tecnologia",
-    "imagem": "/imagens/luminaria-solar.jpg"
+    "imagem": "/imagens/luminaria-solar.png"
   }
 ]
