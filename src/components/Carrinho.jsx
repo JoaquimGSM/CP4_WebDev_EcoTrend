@@ -1,13 +1,39 @@
+import { useState } from "react";
+
 function Carrinho({
   carrinho,
   removerDoCarrinho,
   fecharCarrinho,
+  finalizarCompra,
 }) {
+  const [processando, setProcessando] =
+    useState(false);
+
+  const [mensagem, setMensagem] =
+    useState("");
+
   const totalCarrinho = carrinho.reduce(
     (total, produto) =>
       total + produto.preco * produto.quantidade,
     0
   );
+
+  async function realizarCheckout() {
+    try {
+      setProcessando(true);
+      setMensagem("");
+
+      const resultado = await finalizarCompra();
+
+      setMensagem(resultado);
+    } catch {
+      setMensagem(
+        "Ocorreu um erro ao finalizar a compra."
+      );
+    } finally {
+      setProcessando(false);
+    }
+  }
 
   return (
     <>
@@ -29,6 +55,12 @@ function Carrinho({
             ×
           </button>
         </div>
+
+        {mensagem && (
+          <div className="mt-6 rounded-lg bg-green-50 p-4 text-green-700">
+            {mensagem}
+          </div>
+        )}
 
         {carrinho.length === 0 ? (
           <p className="mt-8 text-gray-600">
@@ -61,7 +93,8 @@ function Carrinho({
                       <p className="mt-1 font-medium">
                         R${" "}
                         {(
-                          produto.preco * produto.quantidade
+                          produto.preco *
+                          produto.quantidade
                         )
                           .toFixed(2)
                           .replace(".", ",")}
@@ -95,8 +128,14 @@ function Carrinho({
                 </span>
               </div>
 
-              <button className="mt-6 w-full rounded-lg bg-green-700 px-4 py-3 font-semibold text-white transition hover:bg-green-800">
-                Finalizar compra
+              <button
+                onClick={realizarCheckout}
+                disabled={processando}
+                className="mt-6 w-full rounded-lg bg-green-700 px-4 py-3 font-semibold text-white transition hover:bg-green-800 disabled:cursor-not-allowed disabled:bg-gray-400"
+              >
+                {processando
+                  ? "Processando..."
+                  : "Finalizar compra"}
               </button>
             </div>
           </>

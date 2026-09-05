@@ -101,6 +101,15 @@ function App() {
     setCarrinho(carrinhoAtualizado);
   }
 
+  function finalizarCompra() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        setCarrinho([]);
+        resolve("Compra realizada com sucesso!");
+      }, 2000);
+    });
+  }
+
   const produtosFiltrados =
     categoriaSelecionada === "Todos"
       ? produtos
@@ -217,12 +226,11 @@ function App() {
       {carrinhoAberto && (
         <Carrinho
           carrinho={carrinho}
-          removerDoCarrinho={
-            removerDoCarrinho
-          }
+          removerDoCarrinho={removerDoCarrinho}
           fecharCarrinho={() =>
             setCarrinhoAberto(false)
           }
+          finalizarCompra={finalizarCompra}
         />
       )}
     </>
