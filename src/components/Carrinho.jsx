@@ -1,18 +1,37 @@
-function Carrinho({ carrinho, removerDoCarrinho }) {
+function Carrinho({
+  carrinho,
+  removerDoCarrinho,
+  fecharCarrinho,
+}) {
   const totalCarrinho = carrinho.reduce(
-    (total, produto) => total + produto.preco * produto.quantidade,
+    (total, produto) =>
+      total + produto.preco * produto.quantidade,
     0
   );
 
   return (
-    <section id="carrinho" className="bg-gray-50 px-8 py-16">
-      <div className="mx-auto max-w-5xl">
-        <h2 className="text-3xl font-bold text-gray-900">
-          Seu carrinho
-        </h2>
+    <>
+      <div
+        onClick={fecharCarrinho}
+        className="fixed inset-0 z-40 bg-black/40"
+      ></div>
+
+      <aside className="fixed right-0 top-0 z-50 h-full w-full max-w-md overflow-y-auto bg-white p-6 shadow-xl">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-gray-900">
+            Seu carrinho
+          </h2>
+
+          <button
+            onClick={fecharCarrinho}
+            className="text-2xl text-gray-500 hover:text-gray-900"
+          >
+            ×
+          </button>
+        </div>
 
         {carrinho.length === 0 ? (
-          <p className="mt-6 text-gray-600">
+          <p className="mt-8 text-gray-600">
             Seu carrinho está vazio.
           </p>
         ) : (
@@ -21,53 +40,69 @@ function Carrinho({ carrinho, removerDoCarrinho }) {
               {carrinho.map((produto) => (
                 <div
                   key={produto.id}
-                  className="flex items-center justify-between rounded-xl bg-white p-5 shadow-sm"
+                  className="rounded-xl border border-gray-200 p-4"
                 >
-                  <div className="flex items-center gap-4">
+                  <div className="flex gap-4">
                     <img
                       src={produto.imagem}
                       alt={produto.nome}
                       className="h-20 w-20 rounded-lg object-cover"
                     />
 
-                    <div>
-                      <h3 className="font-semibold text-gray-900">
+                    <div className="flex-1">
+                      <h3 className="font-semibold">
                         {produto.nome}
                       </h3>
 
-                      <p className="text-sm text-gray-500">
+                      <p className="mt-1 text-sm text-gray-500">
                         Quantidade: {produto.quantidade}
                       </p>
 
                       <p className="mt-1 font-medium">
-                        R$ {produto.preco.toFixed(2).replace(".", ",")}
+                        R${" "}
+                        {(
+                          produto.preco * produto.quantidade
+                        )
+                          .toFixed(2)
+                          .replace(".", ",")}
                       </p>
+
+                      <button
+                        onClick={() =>
+                          removerDoCarrinho(produto.id)
+                        }
+                        className="mt-3 text-sm font-medium text-red-500 hover:text-red-700"
+                      >
+                        Remover
+                      </button>
                     </div>
                   </div>
-
-                  <button
-                    onClick={() => removerDoCarrinho(produto.id)}
-                    className="rounded-lg border border-red-500 px-4 py-2 text-red-500 transition hover:bg-red-500 hover:text-white"
-                  >
-                    Remover
-                  </button>
                 </div>
               ))}
             </div>
 
-            <div className="mt-8 flex items-center justify-between border-t border-gray-300 pt-6">
-              <p className="text-xl font-bold">
-                Total
-              </p>
+            <div className="mt-8 border-t border-gray-200 pt-6">
+              <div className="flex justify-between">
+                <span className="text-xl font-bold">
+                  Total
+                </span>
 
-              <p className="text-2xl font-bold text-green-700">
-                R$ {totalCarrinho.toFixed(2).replace(".", ",")}
-              </p>
+                <span className="text-xl font-bold text-green-700">
+                  R${" "}
+                  {totalCarrinho
+                    .toFixed(2)
+                    .replace(".", ",")}
+                </span>
+              </div>
+
+              <button className="mt-6 w-full rounded-lg bg-green-700 px-4 py-3 font-semibold text-white transition hover:bg-green-800">
+                Finalizar compra
+              </button>
             </div>
           </>
         )}
-      </div>
-    </section>
+      </aside>
+    </>
   );
 }
 

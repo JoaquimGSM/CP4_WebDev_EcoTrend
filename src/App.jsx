@@ -7,8 +7,10 @@ import Carrinho from "./components/Carrinho";
 
 function App() {
   const [produtos, setProdutos] = useState([]);
-  const [categoriaSelecionada, setCategoriaSelecionada] = useState("Todos");
+  const [categoriaSelecionada, setCategoriaSelecionada] =
+    useState("Todos");
   const [carrinho, setCarrinho] = useState([]);
+  const [carrinhoAberto, setCarrinhoAberto] = useState(false);
 
   useEffect(() => {
     async function buscarProdutos() {
@@ -29,7 +31,10 @@ function App() {
     if (produtoExiste) {
       const carrinhoAtualizado = carrinho.map((item) =>
         item.id === produto.id
-          ? { ...item, quantidade: item.quantidade + 1 }
+          ? {
+              ...item,
+              quantidade: item.quantidade + 1,
+            }
           : item
       );
 
@@ -56,22 +61,30 @@ function App() {
     categoriaSelecionada === "Todos"
       ? produtos
       : produtos.filter(
-          (produto) => produto.categoria === categoriaSelecionada
+          (produto) =>
+            produto.categoria === categoriaSelecionada
         );
 
   const quantidadeCarrinho = carrinho.reduce(
-    (total, produto) => total + produto.quantidade,
+    (total, produto) =>
+      total + produto.quantidade,
     0
   );
 
   return (
     <>
-      <Cabecalho quantidadeCarrinho={quantidadeCarrinho} />
+      <Cabecalho
+        quantidadeCarrinho={quantidadeCarrinho}
+        abrirCarrinho={() => setCarrinhoAberto(true)}
+      />
 
       <main>
         <Hero />
 
-        <section id="produtos" className="px-8 py-16">
+        <section
+          id="produtos"
+          className="px-8 py-16"
+        >
           <div className="mx-auto max-w-7xl">
             <h2 className="text-3xl font-bold text-gray-900">
               Nossos produtos
@@ -83,35 +96,45 @@ function App() {
 
             <div className="mt-6 flex flex-wrap gap-3">
               <button
-                onClick={() => setCategoriaSelecionada("Todos")}
+                onClick={() =>
+                  setCategoriaSelecionada("Todos")
+                }
                 className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
               >
                 Todos
               </button>
 
               <button
-                onClick={() => setCategoriaSelecionada("Roupas")}
+                onClick={() =>
+                  setCategoriaSelecionada("Roupas")
+                }
                 className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
               >
                 Roupas
               </button>
 
               <button
-                onClick={() => setCategoriaSelecionada("Beleza")}
+                onClick={() =>
+                  setCategoriaSelecionada("Beleza")
+                }
                 className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
               >
                 Beleza
               </button>
 
               <button
-                onClick={() => setCategoriaSelecionada("Casa")}
+                onClick={() =>
+                  setCategoriaSelecionada("Casa")
+                }
                 className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
               >
                 Casa
               </button>
 
               <button
-                onClick={() => setCategoriaSelecionada("Tecnologia")}
+                onClick={() =>
+                  setCategoriaSelecionada("Tecnologia")
+                }
                 className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
               >
                 Tecnologia
@@ -123,18 +146,25 @@ function App() {
                 <CardProduto
                   key={produto.id}
                   produto={produto}
-                  adicionarAoCarrinho={adicionarAoCarrinho}
+                  adicionarAoCarrinho={
+                    adicionarAoCarrinho
+                  }
                 />
               ))}
             </div>
           </div>
         </section>
+      </main>
 
+      {carrinhoAberto && (
         <Carrinho
           carrinho={carrinho}
           removerDoCarrinho={removerDoCarrinho}
+          fecharCarrinho={() =>
+            setCarrinhoAberto(false)
+          }
         />
-      </main>
+      )}
     </>
   );
 }
