@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Cabecalho from "./components/Cabecalho";
 import Hero from "./components/Hero";
 import CardProduto from "./components/CardProduto";
+import Carrinho from "./components/Carrinho";
 
 function App() {
   const [produtos, setProdutos] = useState([]);
@@ -41,6 +42,14 @@ function App() {
 
       setCarrinho([...carrinho, novoProduto]);
     }
+  }
+
+  function removerDoCarrinho(id) {
+    const carrinhoAtualizado = carrinho.filter(
+      (produto) => produto.id !== id
+    );
+
+    setCarrinho(carrinhoAtualizado);
   }
 
   const produtosFiltrados =
@@ -120,6 +129,11 @@ function App() {
             </div>
           </div>
         </section>
+
+        <Carrinho
+          carrinho={carrinho}
+          removerDoCarrinho={removerDoCarrinho}
+        />
       </main>
     </>
   );
