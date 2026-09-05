@@ -1,6 +1,6 @@
 # EcoTrend
 
-Projeto desenvolvido para o **Checkpoint 04** da disciplina de **Web Development with JavaScript**, do curso de **Engenharia de Software da FIAP**.
+Projeto desenvolvido para o **Checkpoint 04** da disciplina de **Web Development**, do curso de **Engenharia de Software da FIAP**.
 
 A **EcoTrend** é um e-commerce de produtos sustentáveis e ecológicos, com categorias de roupas, beleza, casa e tecnologia verde.
 
