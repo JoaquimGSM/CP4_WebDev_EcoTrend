@@ -7,10 +7,20 @@ import Carrinho from "./components/Carrinho";
 
 function App() {
   const [produtos, setProdutos] = useState([]);
+
   const [categoriaSelecionada, setCategoriaSelecionada] =
     useState("Todos");
-  const [carrinho, setCarrinho] = useState([]);
-  const [carrinhoAberto, setCarrinhoAberto] = useState(false);
+
+  const [carrinho, setCarrinho] = useState(() => {
+    const carrinhoSalvo = localStorage.getItem("carrinho");
+
+    return carrinhoSalvo
+      ? JSON.parse(carrinhoSalvo)
+      : [];
+  });
+
+  const [carrinhoAberto, setCarrinhoAberto] =
+    useState(false);
 
   useEffect(() => {
     async function buscarProdutos() {
@@ -22,6 +32,13 @@ function App() {
 
     buscarProdutos();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "carrinho",
+      JSON.stringify(carrinho)
+    );
+  }, [carrinho]);
 
   function adicionarAoCarrinho(produto) {
     const produtoExiste = carrinho.find(
@@ -45,7 +62,10 @@ function App() {
         quantidade: 1,
       };
 
-      setCarrinho([...carrinho, novoProduto]);
+      setCarrinho([
+        ...carrinho,
+        novoProduto,
+      ]);
     }
   }
 
@@ -75,7 +95,9 @@ function App() {
     <>
       <Cabecalho
         quantidadeCarrinho={quantidadeCarrinho}
-        abrirCarrinho={() => setCarrinhoAberto(true)}
+        abrirCarrinho={() =>
+          setCarrinhoAberto(true)
+        }
       />
 
       <main>
@@ -142,15 +164,17 @@ function App() {
             </div>
 
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {produtosFiltrados.map((produto) => (
-                <CardProduto
-                  key={produto.id}
-                  produto={produto}
-                  adicionarAoCarrinho={
-                    adicionarAoCarrinho
-                  }
-                />
-              ))}
+              {produtosFiltrados.map(
+                (produto) => (
+                  <CardProduto
+                    key={produto.id}
+                    produto={produto}
+                    adicionarAoCarrinho={
+                      adicionarAoCarrinho
+                    }
+                  />
+                )
+              )}
             </div>
           </div>
         </section>
@@ -159,7 +183,9 @@ function App() {
       {carrinhoAberto && (
         <Carrinho
           carrinho={carrinho}
-          removerDoCarrinho={removerDoCarrinho}
+          removerDoCarrinho={
+            removerDoCarrinho
+          }
           fecharCarrinho={() =>
             setCarrinhoAberto(false)
           }
