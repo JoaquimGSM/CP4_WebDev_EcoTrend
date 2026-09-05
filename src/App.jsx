@@ -4,6 +4,7 @@ import Cabecalho from "./components/Cabecalho";
 import Hero from "./components/Hero";
 import CardProduto from "./components/CardProduto";
 import Carrinho from "./components/Carrinho";
+import Loading from "./components/Loading";
 
 function App() {
   const [produtos, setProdutos] = useState([]);
@@ -22,12 +23,34 @@ function App() {
   const [carrinhoAberto, setCarrinhoAberto] =
     useState(false);
 
+  const [carregando, setCarregando] =
+    useState(true);
+
+  const [erro, setErro] =
+    useState("");
+
   useEffect(() => {
     async function buscarProdutos() {
-      const resposta = await fetch("/produtos.json");
-      const dados = await resposta.json();
+      try {
+        setCarregando(true);
+        setErro("");
 
-      setProdutos(dados);
+        const resposta = await fetch("/produtos.json");
+
+        if (!resposta.ok) {
+          throw new Error(
+            "Não foi possível carregar os produtos."
+          );
+        }
+
+        const dados = await resposta.json();
+
+        setProdutos(dados);
+      } catch (erro) {
+        setErro(erro.message);
+      } finally {
+        setCarregando(false);
+      }
     }
 
     buscarProdutos();
@@ -46,13 +69,14 @@ function App() {
     );
 
     if (produtoExiste) {
-      const carrinhoAtualizado = carrinho.map((item) =>
-        item.id === produto.id
-          ? {
-              ...item,
-              quantidade: item.quantidade + 1,
-            }
-          : item
+      const carrinhoAtualizado = carrinho.map(
+        (item) =>
+          item.id === produto.id
+            ? {
+                ...item,
+                quantidade: item.quantidade + 1,
+              }
+            : item
       );
 
       setCarrinho(carrinhoAtualizado);
@@ -112,70 +136,80 @@ function App() {
               Nossos produtos
             </h2>
 
-            <p className="mt-2 text-gray-600">
-              {produtosFiltrados.length} produtos encontrados
-            </p>
+            {carregando ? (
+              <Loading />
+            ) : erro ? (
+              <div className="mt-8 rounded-lg bg-red-50 p-4 text-red-700">
+                {erro}
+              </div>
+            ) : (
+              <>
+                <p className="mt-2 text-gray-600">
+                  {produtosFiltrados.length} produtos encontrados
+                </p>
 
-            <div className="mt-6 flex flex-wrap gap-3">
-              <button
-                onClick={() =>
-                  setCategoriaSelecionada("Todos")
-                }
-                className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
-              >
-                Todos
-              </button>
-
-              <button
-                onClick={() =>
-                  setCategoriaSelecionada("Roupas")
-                }
-                className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
-              >
-                Roupas
-              </button>
-
-              <button
-                onClick={() =>
-                  setCategoriaSelecionada("Beleza")
-                }
-                className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
-              >
-                Beleza
-              </button>
-
-              <button
-                onClick={() =>
-                  setCategoriaSelecionada("Casa")
-                }
-                className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
-              >
-                Casa
-              </button>
-
-              <button
-                onClick={() =>
-                  setCategoriaSelecionada("Tecnologia")
-                }
-                className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
-              >
-                Tecnologia
-              </button>
-            </div>
-
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {produtosFiltrados.map(
-                (produto) => (
-                  <CardProduto
-                    key={produto.id}
-                    produto={produto}
-                    adicionarAoCarrinho={
-                      adicionarAoCarrinho
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <button
+                    onClick={() =>
+                      setCategoriaSelecionada("Todos")
                     }
-                  />
-                )
-              )}
-            </div>
+                    className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+                  >
+                    Todos
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      setCategoriaSelecionada("Roupas")
+                    }
+                    className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+                  >
+                    Roupas
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      setCategoriaSelecionada("Beleza")
+                    }
+                    className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+                  >
+                    Beleza
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      setCategoriaSelecionada("Casa")
+                    }
+                    className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+                  >
+                    Casa
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      setCategoriaSelecionada("Tecnologia")
+                    }
+                    className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+                  >
+                    Tecnologia
+                  </button>
+                </div>
+
+                <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                  {produtosFiltrados.map(
+                    (produto) => (
+                      <CardProduto
+                        key={produto.id}
+                        produto={produto}
+                        adicionarAoCarrinho={
+                          adicionarAoCarrinho
+                        }
+                      />
+                    )
+                  )}
+                </div>
+              </>
+            )}
           </div>
         </section>
       </main>
