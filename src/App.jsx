@@ -6,6 +6,7 @@ import CardProduto from "./components/CardProduto";
 
 function App() {
   const [produtos, setProdutos] = useState([]);
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState("Todos");
 
   useEffect(() => {
     async function buscarProdutos() {
@@ -17,6 +18,13 @@ function App() {
 
     buscarProdutos();
   }, []);
+
+  const produtosFiltrados =
+    categoriaSelecionada === "Todos"
+      ? produtos
+      : produtos.filter(
+          (produto) => produto.categoria === categoriaSelecionada
+        );
 
   return (
     <>
@@ -32,11 +40,48 @@ function App() {
             </h2>
 
             <p className="mt-2 text-gray-600">
-              {produtos.length} produtos encontrados
+              {produtosFiltrados.length} produtos encontrados
             </p>
 
+            <div className="mt-6 flex flex-wrap gap-3">
+              <button
+                onClick={() => setCategoriaSelecionada("Todos")}
+                className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+              >
+                Todos
+              </button>
+
+              <button
+                onClick={() => setCategoriaSelecionada("Roupas")}
+                className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+              >
+                Roupas
+              </button>
+
+              <button
+                onClick={() => setCategoriaSelecionada("Beleza")}
+                className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+              >
+                Beleza
+              </button>
+
+              <button
+                onClick={() => setCategoriaSelecionada("Casa")}
+                className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+              >
+                Casa
+              </button>
+
+              <button
+                onClick={() => setCategoriaSelecionada("Tecnologia")}
+                className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+              >
+                Tecnologia
+              </button>
+            </div>
+
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {produtos.map((produto) => (
+              {produtosFiltrados.map((produto) => (
                 <CardProduto
                   key={produto.id}
                   produto={produto}
