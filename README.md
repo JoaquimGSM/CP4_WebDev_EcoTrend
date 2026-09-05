@@ -1,16 +1,81 @@
-# React + Vite
+# EcoTrend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto desenvolvido para o **Checkpoint 04** da disciplina de **Web Development with JavaScript**, do curso de **Engenharia de Software da FIAP**.
 
-Currently, two official plugins are available:
+A **EcoTrend** é um e-commerce de produtos sustentáveis e ecológicos, com categorias de roupas, beleza, casa e tecnologia verde.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Integrante
 
-## React Compiler
+Joaquim Gaspardo Souza Moura  
+RM: 572208
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Funcionalidades
 
-## Expanding the ESLint configuration
+- Carregamento de produtos através de JSON;
+- Requisição GET com Fetch API;
+- Uso de `async/await`;
+- Loading e tratamento de erros;
+- Filtro por categoria;
+- Filtro por preço;
+- Carrinho de compras dinâmico;
+- Controle de quantidade e remoção de produtos;
+- Cálculo automático do valor total;
+- Persistência do carrinho com `localStorage`;
+- Checkout simulado utilizando `Promise`;
+- Interface responsiva.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tecnologias
+
+- React
+- JavaScript
+- Vite
+- Tailwind CSS
+- Fetch API
+- JSON
+- LocalStorage
+- Promises
+- Async/Await
+- Font Awesome
+- Google Fonts
+
+## Como executar
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/JoaquimGSM/CP4_WebDev_EcoTrend.git
+```
+
+Entre na pasta:
+
+```bash
+cd CP4_WebDev_EcoTrend
+```
+
+Instale as dependências:
+
+```bash
+npm install
+```
+
+Execute o projeto:
+
+```bash
+npm run dev
+```
+
+## Deploy
+
+Aplicação publicada na Vercel:
+
+https://cp-4-web-dev-eco-trend.vercel.app
+
+## Repositório
+
+https://github.com/JoaquimGSM/CP4_WebDev_EcoTrend
+
+
+## Disciplina
+
+Web Development with JavaScript  
+Engenharia de Software - FIAP
