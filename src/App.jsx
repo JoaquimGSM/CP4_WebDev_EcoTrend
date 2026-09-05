@@ -39,7 +39,7 @@ function App() {
         setCarregando(true);
         setErro("");
 
-        const resposta = await fetch("/produtos.json");
+        const resposta = await fetch("https://raw.githubusercontent.com/JoaquimGSM/CP4_WebDev_EcoTrend/refs/heads/main/public/produtos.json");
 
         if (!resposta.ok) {
           throw new Error(
