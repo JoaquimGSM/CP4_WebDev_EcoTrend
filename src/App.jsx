@@ -153,7 +153,7 @@ function App() {
 
         <section
           id="produtos"
-          className="px-8 py-16"
+          className="px-4 py-16 sm:px-8"
         >
           <div className="mx-auto max-w-7xl">
             <h2 className="text-3xl font-bold text-gray-900">
