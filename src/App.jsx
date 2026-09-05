@@ -7,6 +7,7 @@ import CardProduto from "./components/CardProduto";
 function App() {
   const [produtos, setProdutos] = useState([]);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState("Todos");
+  const [carrinho, setCarrinho] = useState([]);
 
   useEffect(() => {
     async function buscarProdutos() {
@@ -19,6 +20,29 @@ function App() {
     buscarProdutos();
   }, []);
 
+  function adicionarAoCarrinho(produto) {
+    const produtoExiste = carrinho.find(
+      (item) => item.id === produto.id
+    );
+
+    if (produtoExiste) {
+      const carrinhoAtualizado = carrinho.map((item) =>
+        item.id === produto.id
+          ? { ...item, quantidade: item.quantidade + 1 }
+          : item
+      );
+
+      setCarrinho(carrinhoAtualizado);
+    } else {
+      const novoProduto = {
+        ...produto,
+        quantidade: 1,
+      };
+
+      setCarrinho([...carrinho, novoProduto]);
+    }
+  }
+
   const produtosFiltrados =
     categoriaSelecionada === "Todos"
       ? produtos
@@ -26,9 +50,14 @@ function App() {
           (produto) => produto.categoria === categoriaSelecionada
         );
 
+  const quantidadeCarrinho = carrinho.reduce(
+    (total, produto) => total + produto.quantidade,
+    0
+  );
+
   return (
     <>
-      <Cabecalho />
+      <Cabecalho quantidadeCarrinho={quantidadeCarrinho} />
 
       <main>
         <Hero />
@@ -85,6 +114,7 @@ function App() {
                 <CardProduto
                   key={produto.id}
                   produto={produto}
+                  adicionarAoCarrinho={adicionarAoCarrinho}
                 />
               ))}
             </div>

@@ -1,4 +1,4 @@
-function CardProduto({ produto }) {
+function CardProduto({ produto, adicionarAoCarrinho }) {
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
       <img
@@ -20,7 +20,10 @@ function CardProduto({ produto }) {
           R$ {produto.preco.toFixed(2).replace(".", ",")}
         </p>
 
-        <button className="mt-5 w-full rounded-lg bg-green-700 px-4 py-3 font-semibold text-white transition hover:bg-green-800">
+        <button
+          onClick={() => adicionarAoCarrinho(produto)}
+          className="mt-5 w-full rounded-lg bg-green-700 px-4 py-3 font-semibold text-white transition hover:bg-green-800"
+        >
           Adicionar ao carrinho
         </button>
       </div>
