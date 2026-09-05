@@ -5,6 +5,7 @@ import Hero from "./components/Hero";
 import CardProduto from "./components/CardProduto";
 import Carrinho from "./components/Carrinho";
 import Loading from "./components/Loading";
+import Rodape from "./components/Rodape";
 
 function App() {
   const [produtos, setProdutos] = useState([]);
@@ -153,37 +154,38 @@ function App() {
 
         <section
           id="produtos"
-          className="px-4 py-16 sm:px-8"
+          className="scroll-mt-6 px-5 pt-10 pb-12 sm:px-8 sm:pt-14 lg:px-12"
         >
-          <div className="mx-auto max-w-7xl">
-            <h2 className="text-3xl font-bold text-gray-900">
-              Nossos produtos
+          <div className="mx-auto max-w-[1440px]">
+            <h2 className="font-editorial text-4xl tracking-tight sm:text-5xl">
+              O catálogo
             </h2>
 
             {carregando ? (
               <Loading />
             ) : erro ? (
-              <div className="mt-8 rounded-lg bg-red-50 p-4 text-red-700">
+              <div className="mt-8 rounded-xl bg-red-50 p-4 text-red-700">
                 {erro}
               </div>
             ) : (
               <>
-                <p className="mt-2 text-gray-600">
+                <p className="mt-3 text-sm text-muted">
                   {produtosFiltrados.length} produtos encontrados
                 </p>
 
-                <div className="mt-6 flex flex-wrap gap-6">
+                <div className="mt-6 flex flex-wrap items-start justify-between gap-x-10 gap-y-4 border-y border-line py-4">
                   <div>
-                    <p className="mb-2 font-semibold text-gray-700">
+                    <p className="mb-1 text-xs text-muted">
                       Categoria
                     </p>
 
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-x-5 gap-y-1">
                       <button
                         onClick={() =>
                           setCategoriaSelecionada("Todos")
                         }
-                        className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+                        aria-pressed={categoriaSelecionada === "Todos"}
+                        className={`min-h-11 border-b-2 py-2 text-sm transition-colors ${categoriaSelecionada === "Todos" ? "border-ink font-semibold text-ink" : "border-transparent text-muted hover:border-olive hover:text-ink"}`}
                       >
                         Todos
                       </button>
@@ -192,7 +194,8 @@ function App() {
                         onClick={() =>
                           setCategoriaSelecionada("Roupas")
                         }
-                        className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+                        aria-pressed={categoriaSelecionada === "Roupas"}
+                        className={`min-h-11 border-b-2 py-2 text-sm transition-colors ${categoriaSelecionada === "Roupas" ? "border-ink font-semibold text-ink" : "border-transparent text-muted hover:border-olive hover:text-ink"}`}
                       >
                         Roupas
                       </button>
@@ -201,7 +204,8 @@ function App() {
                         onClick={() =>
                           setCategoriaSelecionada("Beleza")
                         }
-                        className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+                        aria-pressed={categoriaSelecionada === "Beleza"}
+                        className={`min-h-11 border-b-2 py-2 text-sm transition-colors ${categoriaSelecionada === "Beleza" ? "border-ink font-semibold text-ink" : "border-transparent text-muted hover:border-olive hover:text-ink"}`}
                       >
                         Beleza
                       </button>
@@ -210,7 +214,8 @@ function App() {
                         onClick={() =>
                           setCategoriaSelecionada("Casa")
                         }
-                        className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+                        aria-pressed={categoriaSelecionada === "Casa"}
+                        className={`min-h-11 border-b-2 py-2 text-sm transition-colors ${categoriaSelecionada === "Casa" ? "border-ink font-semibold text-ink" : "border-transparent text-muted hover:border-olive hover:text-ink"}`}
                       >
                         Casa
                       </button>
@@ -219,7 +224,8 @@ function App() {
                         onClick={() =>
                           setCategoriaSelecionada("Tecnologia")
                         }
-                        className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+                        aria-pressed={categoriaSelecionada === "Tecnologia"}
+                        className={`min-h-11 border-b-2 py-2 text-sm transition-colors ${categoriaSelecionada === "Tecnologia" ? "border-ink font-semibold text-ink" : "border-transparent text-muted hover:border-olive hover:text-ink"}`}
                       >
                         Tecnologia
                       </button>
@@ -227,16 +233,17 @@ function App() {
                   </div>
 
                   <div>
-                    <p className="mb-2 font-semibold text-gray-700">
+                    <p className="mb-1 text-xs text-muted">
                       Preço máximo
                     </p>
 
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-x-5 gap-y-1">
                       <button
                         onClick={() =>
                           setPrecoMaximo("Todos")
                         }
-                        className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+                        aria-pressed={precoMaximo === "Todos"}
+                        className={`min-h-11 border-b-2 py-2 text-sm transition-colors ${precoMaximo === "Todos" ? "border-ink font-semibold text-ink" : "border-transparent text-muted hover:border-olive hover:text-ink"}`}
                       >
                         Todos
                       </button>
@@ -245,7 +252,8 @@ function App() {
                         onClick={() =>
                           setPrecoMaximo("50")
                         }
-                        className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+                        aria-pressed={precoMaximo === "50"}
+                        className={`min-h-11 border-b-2 py-2 text-sm transition-colors ${precoMaximo === "50" ? "border-ink font-semibold text-ink" : "border-transparent text-muted hover:border-olive hover:text-ink"}`}
                       >
                         Até R$ 50
                       </button>
@@ -254,7 +262,8 @@ function App() {
                         onClick={() =>
                           setPrecoMaximo("100")
                         }
-                        className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+                        aria-pressed={precoMaximo === "100"}
+                        className={`min-h-11 border-b-2 py-2 text-sm transition-colors ${precoMaximo === "100" ? "border-ink font-semibold text-ink" : "border-transparent text-muted hover:border-olive hover:text-ink"}`}
                       >
                         Até R$ 100
                       </button>
@@ -263,7 +272,8 @@ function App() {
                         onClick={() =>
                           setPrecoMaximo("150")
                         }
-                        className="rounded-lg border border-gray-300 px-4 py-2 transition hover:bg-green-700 hover:text-white"
+                        aria-pressed={precoMaximo === "150"}
+                        className={`min-h-11 border-b-2 py-2 text-sm transition-colors ${precoMaximo === "150" ? "border-ink font-semibold text-ink" : "border-transparent text-muted hover:border-olive hover:text-ink"}`}
                       >
                         Até R$ 150
                       </button>
@@ -271,7 +281,7 @@ function App() {
                   </div>
                 </div>
 
-                <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="mt-7 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 lg:grid-cols-4 lg:gap-x-7 lg:gap-y-12">
                   {produtosFiltrados.map(
                     (produto) => (
                       <CardProduto
@@ -289,6 +299,8 @@ function App() {
           </div>
         </section>
       </main>
+
+      <Rodape />
 
       {carrinhoAberto && (
         <Carrinho

@@ -39,58 +39,59 @@ function Carrinho({
     <>
       <div
         onClick={fecharCarrinho}
-        className="fixed inset-0 z-40 bg-black/40"
+        className="fixed inset-0 z-40 bg-ink/55"
       ></div>
 
-      <aside className="fixed right-0 top-0 z-50 h-full w-full max-w-md overflow-y-auto bg-white p-6 shadow-xl">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900">
+      <aside className="fixed right-0 top-0 z-50 h-dvh w-full max-w-md overflow-y-auto bg-paper p-5 shadow-2xl sm:p-8">
+        <div className="flex items-center justify-between gap-3 border-b border-ink pb-5">
+          <h2 className="font-editorial text-3xl text-ink">
             Seu carrinho
           </h2>
 
           <button
             onClick={fecharCarrinho}
-            className="text-2xl text-gray-500 hover:text-gray-900"
+            aria-label="Fechar carrinho"
+            className="flex h-11 w-11 shrink-0 items-center justify-center text-3xl text-ink transition-colors hover:bg-line"
           >
             ×
           </button>
         </div>
 
         {mensagem && (
-          <div className="mt-6 rounded-lg bg-green-50 p-4 text-green-700">
+          <div className="mt-6 border-l-2 border-olive bg-[#e6e9da] p-4 text-sm text-ink">
             {mensagem}
           </div>
         )}
 
         {carrinho.length === 0 ? (
-          <p className="mt-8 text-gray-600">
+          <p className="mt-8 border-b border-line py-10 text-muted">
             Seu carrinho está vazio.
           </p>
         ) : (
           <>
-            <div className="mt-8 space-y-4">
+            <div className="mt-6 space-y-5">
               {carrinho.map((produto) => (
                 <div
                   key={produto.id}
-                  className="rounded-xl border border-gray-200 p-4"
+                  className="border-b border-line pb-5"
                 >
                   <div className="flex gap-4">
                     <img
                       src={produto.imagem}
                       alt={produto.nome}
-                      className="h-20 w-20 rounded-lg object-cover"
+                      className="h-24 w-24 shrink-0 bg-white object-contain"
                     />
 
-                    <div className="flex-1">
-                      <h3 className="font-semibold">
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-sm font-medium leading-6">
                         {produto.nome}
                       </h3>
 
-                      <p className="mt-1 text-sm text-gray-500">
+                      <p className="mt-1 text-xs text-muted">
                         Quantidade: {produto.quantidade}
                       </p>
 
-                      <p className="mt-1 font-medium">
+                      <p className="mt-2 text-sm font-semibold tabular-nums">
                         R${" "}
                         {(
                           produto.preco *
@@ -104,7 +105,7 @@ function Carrinho({
                         onClick={() =>
                           removerDoCarrinho(produto.id)
                         }
-                        className="mt-3 text-sm font-medium text-red-500 hover:text-red-700"
+                        className="mt-1 min-h-11 text-xs text-muted underline underline-offset-4 hover:text-ink"
                       >
                         Remover
                       </button>
@@ -114,13 +115,13 @@ function Carrinho({
               ))}
             </div>
 
-            <div className="mt-8 border-t border-gray-200 pt-6">
+            <div className="mt-8 border-t border-ink pt-5">
               <div className="flex justify-between">
-                <span className="text-xl font-bold">
+                <span className="text-xl font-medium">
                   Total
                 </span>
 
-                <span className="text-xl font-bold text-green-700">
+                <span className="text-2xl font-semibold text-ink tabular-nums">
                   R${" "}
                   {totalCarrinho
                     .toFixed(2)
@@ -131,7 +132,7 @@ function Carrinho({
               <button
                 onClick={realizarCheckout}
                 disabled={processando}
-                className="mt-6 w-full rounded-lg bg-green-700 px-4 py-3 font-semibold text-white transition hover:bg-green-800 disabled:cursor-not-allowed disabled:bg-gray-400"
+                className="mt-6 min-h-12 w-full bg-ink px-4 py-4 text-sm font-medium text-paper transition-colors hover:bg-olive disabled:cursor-not-allowed disabled:bg-muted"
               >
                 {processando
                   ? "Processando..."

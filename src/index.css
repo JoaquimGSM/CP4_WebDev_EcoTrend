@@ -1,7 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap");
 
 @import "tailwindcss";
 
-body {
-  font-family: "Inter", sans-serif;
+@theme {
+  --font-sans: "DM Sans", sans-serif;
+  --font-editorial: "DM Serif Display", Georgia, serif;
+  --color-paper: #f5f3ec;
+  --color-ink: #202d26;
+  --color-muted: #666b60;
+  --color-olive: #59623f;
+  --color-line: #d4d6ca;
+  --color-accent: #b5bf75;
+}
+
+@layer base {
+  body { @apply m-0 bg-paper font-sans text-ink antialiased; }
+  button, a {
+    @apply focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-olive;
+  }
+  button { @apply cursor-pointer; }
+  ::selection { @apply bg-accent text-ink; }
 }
